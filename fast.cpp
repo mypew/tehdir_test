@@ -18,27 +18,27 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
-    
+
     string input_string;
     vector<int_string> vec;
 
     getline(cin, input_string);
 
     ll index = 0;
-    while (input_string.find(" ",index) != string::npos) {
+    while (input_string.find(" ", index) != string::npos) {
         if (input_string[index] >= 48 && input_string[index] <= 57) vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),false });
         else vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),true });
 
         index = input_string.find(" ", index) + 1;
     }
     if (index < input_string.size()) {
-        if (input_string[index] >= 48 && input_string[index] <= 57) vec.push_back({ input_string.substr(index,input_string.size()-index),vec.size(),false });
+        if (input_string[index] >= 48 && input_string[index] <= 57) vec.push_back({ input_string.substr(index,input_string.size() - index),vec.size(),false });
         else vec.push_back({ input_string.substr(index,input_string.size() - index),vec.size(),true });
     }
 
     sort(vec.begin(), vec.end(), [](const int_string& p1, const int_string& p2) {
         int result = 0;
-        if (p1.type > p2.type || p1.str > p2.str && p1.type == p2.type && p1.type || p1.str > p2.str && p1.type == p2.type && !p1.type) {
+        if (p1.type > p2.type || p1.str > p2.str && p1.type == p2.type && p1.type || p1.str.size() > p2.str.size() && p1.type == p2.type && !p1.type || p1.str > p2.str && p1.type == p2.type && !p1.type && p1.str.size() == p2.str.size()) {
             result = 1;
         }
         return result;

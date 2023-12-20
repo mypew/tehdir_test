@@ -36,7 +36,7 @@ int main() {
             vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),true });
             count_str++;
         }
-        vec_standart.push_back({input_string.substr(index,input_string.find(" ",index) - index)});
+        vec_standart.push_back({ input_string.substr(index,input_string.find(" ",index) - index) });
 
         index = input_string.find(" ", index) + 1;
     }
@@ -60,10 +60,10 @@ int main() {
         return result;
         });
 
-    for (int i = 0; i < max(count_str,count_num); i++) {
+    for (int i = 0; i < max(count_str, count_num); i++) {
         cout << i + 1 << " Step: ";
-        if(i < count_str) for (int j = i; j >= 0; j--) cout << vec[j].str << " ";
-        else for (int j = count_str-1; j >= 0; j--) cout << vec[j].str << " ";
+        if (i < count_str) for (int j = i; j >= 0; j--) cout << vec[j].str << " ";
+        else for (int j = count_str - 1; j >= 0; j--) cout << vec[j].str << " ";
 
         for (int j = 0; j < vec_standart.size(); j++) {
             if (i < count_str && vec[i].str == vec_standart[j]) vec_standart[j] = "DROP TABLE Users;";
@@ -71,7 +71,7 @@ int main() {
             if (vec_standart[j] != "DROP TABLE Users;") cout << vec_standart[j] << " ";
         }
 
-        if (i < count_num) for (int j = vec.size() - 1; j >= vec.size() - 1 - i; j--) cout << vec[j].str << " ";
+        if (i < count_num) for (int j = vec.size() - 1; j >= (ll)vec.size() - 1 - i; j--) cout << vec[j].str << " ";
         else for (int j = vec.size() - 1; j >= vec.size() - count_num; j--) cout << vec[j].str << " ";
         cout << endl;
     }
