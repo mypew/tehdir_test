@@ -22,20 +22,33 @@ int main() {
     string input_string;
     vector<int_string> vec;
     vector<string> vec_standart;
+    ll count_str = 0, count_num = 0;
 
     getline(cin, input_string);
 
     ll index = 0;
     while (input_string.find(" ", index) != string::npos) {
-        if (input_string[index] >= 48 && input_string[index] <= 57) vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),false });
-        else vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),true });
+        if (input_string[index] >= 48 && input_string[index] <= 57) {
+            vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),false });
+            count_num++;
+        }
+        else {
+            vec.push_back({ input_string.substr(index,input_string.find(" ",index) - index),vec.size(),true });
+            count_str++;
+        }
         vec_standart.push_back({input_string.substr(index,input_string.find(" ",index) - index)});
 
         index = input_string.find(" ", index) + 1;
     }
     if (index < input_string.size()) {
-        if (input_string[index] >= 48 && input_string[index] <= 57) vec.push_back({ input_string.substr(index,input_string.size() - index),vec.size(),false });
-        else vec.push_back({ input_string.substr(index,input_string.size() - index),vec.size(),true });
+        if (input_string[index] >= 48 && input_string[index] <= 57) {
+            vec.push_back({ input_string.substr(index,input_string.size() - index),vec.size(),false });
+            count_num++;
+        }
+        else {
+            vec.push_back({ input_string.substr(index,input_string.size() - index),vec.size(),true });
+            count_str++;
+        }
         vec_standart.push_back({ input_string.substr(index,input_string.find(" ",index) - index) });
     }
 
@@ -47,16 +60,19 @@ int main() {
         return result;
         });
 
-    for (int i = 0; i < vec.size()/2; i++) {
+    for (int i = 0; i < max(count_str,count_num); i++) {
         cout << i + 1 << " Step: ";
-        for (int j = i; j >= 0; j--) cout << vec[j].str << " ";
+        if(i < count_str) for (int j = i; j >= 0; j--) cout << vec[j].str << " ";
+        else for (int j = count_str-1; j >= 0; j--) cout << vec[j].str << " ";
 
         for (int j = 0; j < vec_standart.size(); j++) {
-            if (vec[i].str == vec_standart[j] || vec[vec.size()-1-i].str == vec_standart[j]) vec_standart[j] = "DROP TABLE Users;";
+            if (i < count_str && vec[i].str == vec_standart[j]) vec_standart[j] = "DROP TABLE Users;";
+            if (i < count_num && vec[vec.size() - 1 - i].str == vec_standart[j]) vec_standart[j] = "DROP TABLE Users;";
             if (vec_standart[j] != "DROP TABLE Users;") cout << vec_standart[j] << " ";
         }
 
-        for (int j = vec.size() - 1; j >= vec.size() - 1 - i; j--) cout << vec[j].str << " ";
+        if (i < count_num) for (int j = vec.size() - 1; j >= vec.size() - 1 - i; j--) cout << vec[j].str << " ";
+        else for (int j = vec.size() - 1; j >= vec.size() - count_num; j--) cout << vec[j].str << " ";
         cout << endl;
     }
 }
